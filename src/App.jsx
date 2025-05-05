@@ -1,5 +1,6 @@
 import React from 'react';
 import PatientRegistrationForm from './RegistrationForm';
+import SearchPatientFeature from './SearchFunctionality';
 import './App.css';
 
 function App() {
@@ -7,6 +8,8 @@ function App() {
     <div className="app-container">
       <h1>Patient Registration Portal</h1>
       <PatientRegistrationForm />
+      <hr />
+      <SearchPatientFeature />
     </div>
   );
 }
