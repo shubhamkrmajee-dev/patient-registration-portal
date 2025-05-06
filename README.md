@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+# Patient Registration Form (Frontend Only React App)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a lightweight, browser based **Patient Registration Portal** developed using **React**, **PGLite**, and **IndexedDB**. It runs entirely in the browser with **no backend server** and supports **data persistence**, **tab-to-tab communication** and **real-time data updates**.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Project Overview
 
-### `npm start`
+### **Features**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This application has following features:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Allows users to register new patients. The Registration form has 4 fields: Name, Age, Gender and Contact Number. The Register only gets enabled when all the form fields are filled correctly. The Name field must have first and last name both. Contact Number must be a 10 digits number.
 
-### `npm test`
+2. Allows users to search patients data using SQL and view the data in a tabular format. With this functionality, users can view filtered patient's data (searching by name) using `Search Patient` button and can also view all patients data by clicking on `View All Patients` button.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Upon reloading the page, patient data persists consistently. So, if the user searches for a particular patient using `Search Patient` button, even after reloading the page, the searched data will be displayed in the table as before.
 
-### `npm run build`
+4. This app supports usage in multiple browser tabs simultaneously. This means users can work on multiple tabs of the same browser simultaneously. If a new patient is added on tab B, the broadcast channel API notifies all the tabs about the new data addition. Then clicking on the `View All Patients` button on tab B, on which the new patient is registered will update the new data in the table. And then the same update on the table can be viewed on all the other tabs just be reloading.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+5. Frontend-only database implementation using: `indexedDB` for persistent data storage in the browser. And `PGLite` (a WebAssembly-based version of PostgreSQL) for SQL-like queries directly in the browser.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Technologies Used:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. React.js and CRA - UI Development
+2. IndexedDB - Browser-based structured storage for patients
+3. PGLite - SQL-like querying of patient data in-browser
+4. localStorage API - Cross-tab communication and data sync
 
-### `npm run eject`
+## Setup Instructions
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Prerequisites
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Node.js
+2. npm
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Project Setup
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. **Clone the repository** using the command prompt given below:
 
-## Learn More
+```sh
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+git clone https://github.com/shubhamkrmajee-dev/patient-registration-portal.git
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+cd patient-registration-portal
 
-### Code Splitting
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. **Install Dependencies**
 
-### Analyzing the Bundle Size
+```sh
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+npm install
 
-### Making a Progressive Web App
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3. **Start the frontend server**
 
-### Advanced Configuration
+```sh
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+npm start
 
-### Deployment
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Challenges Faced During Development
 
-### `npm run build` fails to minify
+1. Cross-Tab synchronization without server support
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Achieving real-time sync across tabs without any backend server was complex.
+
+2. Integrating PGLite in a Frontend-Only Environment
+
+- PGLite requires async WebAssembly loading; integrating this smoothly with React lifecycle methods required careful structuring.
+
+3. No Backend Fallback
+   -Everything had to be done client-side including data validation, persistence, and error handling.
+
+- This made debugging more difficult and put more pressure on the frontend logic.
+
+---
+
+#### About Me:
+
+Author: Shubham Kumar Majee
+
+**LinkedIn:** [https://www.linkedin.com/in/shubham-kumar-majee-b21881209/](https://www.linkedin.com/in/shubham-kumar-majee-b21881209/)
