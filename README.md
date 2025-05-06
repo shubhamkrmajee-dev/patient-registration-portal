@@ -16,7 +16,7 @@ This application has following features:
 
 3. Upon reloading the page, patient data persists consistently. So, if the user searches for a particular patient using `Search Patient` button, even after reloading the page, the searched data will be displayed in the table as before.
 
-4. This app supports usage in multiple browser tabs simultaneously. This means users can work on multiple tabs of the same browser simultaneously. If a new patient is added on tab B, the broadcast channel API notifies all the tabs about the new data addition. Then clicking on the `View All Patients` button on tab B, on which the new patient is registered will update the new data in the table. And then the same update on the table can be viewed on all the other tabs just be reloading.
+4. This app supports usage in multiple browser tabs simultaneously. This means users can work on multiple tabs of the same browser simultaneously. If a new patient is added on tab B, the broadcast channel API notifies all the tabs about the new data addition. Then using `localStorage` event strategy, clicking on the `View All Patients` button on tab B, on which the new patient is registered will update the new data in the table. And then the same update on the table can be viewed on all the other tabs just by reloading the page.
 
 5. Frontend-only database implementation using: `indexedDB` for persistent data storage in the browser. And `PGLite` (a WebAssembly-based version of PostgreSQL) for SQL-like queries directly in the browser.
 
