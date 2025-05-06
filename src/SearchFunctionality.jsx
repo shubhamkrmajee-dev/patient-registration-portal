@@ -7,6 +7,7 @@ function SearchPatientFeature() {
     const [searchName, setSearchName] = useState('');
     const [results, setResults] = useState([]);
     const [error, setError] = useState('');
+    const [newData, setNewData] = useState(false);
 
     const fetchAllPatientsData = async () => {
         const allDataQuery = 'SELECT * FROM patients ORDER BY id ASC;';
@@ -17,6 +18,7 @@ function SearchPatientFeature() {
             setError('');
             localStorage.setItem('lastQuery', allDataQuery);
             localStorage.setItem('lastResults', JSON.stringify(response.rows));
+            setNewData(false);
             setSearchName('');
         } catch (error) {
             setError('Failed to fetch all patients: ' + error.message);
@@ -32,6 +34,7 @@ function SearchPatientFeature() {
             setError('');
             localStorage.setItem('lastQuery', `${filterDataQuery} with name = ${searchName}`);
             localStorage.setItem('lastResults', JSON.stringify(response.rows));
+            setNewData(false);
         } catch (error) {
             setError('Filter search failed: ', + error.message);
             setResults([]);
@@ -47,6 +50,17 @@ function SearchPatientFeature() {
                 fetchAllPatientsData();
             }
         } catch {}
+    }, []);
+
+    useEffect(() => {
+        const bc = new BroadcastChannel('new-patient-updates');
+        bc.onmessage = (event) => {
+            if (event.data?.type === 'new-patient-added') {
+                setNewData(true);
+                console.log('New patient added in another tab');
+            }
+        };
+        return () => bc.close();
     }, []);
 
     return (
@@ -78,6 +92,12 @@ function SearchPatientFeature() {
                     View All Patients
                 </button>
             </div>
+
+            {newData && (
+                <p className='new-data-message'>
+                    New patient data available. Click "View All Patients" button to update.
+                </p>
+            )}
 
             {error && <p className="error-message">{error}</p>}
 

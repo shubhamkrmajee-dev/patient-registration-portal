@@ -50,6 +50,12 @@
     border: 1px solid #999;
 }
 
+.new-data-message {
+  color: green;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
 .error-message {
     color: red;
     font-weight: 500;

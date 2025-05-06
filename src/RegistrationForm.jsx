@@ -66,6 +66,9 @@ function PatientRegistrationForm() {
                 'INSERT INTO patients (name, age, gender, contact) VALUES ($1, $2, $3, $4);',
                 [form.name, parseInt(form.age), form.gender, parseInt(form.contact)]
             );
+            const bc = new BroadcastChannel('new-patient-updates');
+            bc.postMessage({ type: 'new-patient-added', timestamp: Date.now()});
+
             alert('Patient registered successfully');
             setForm({ name: '', age: '', gender: '', contact: '' });
 
@@ -85,7 +88,6 @@ function PatientRegistrationForm() {
                     placeholder="Enter Name (e.g. Shubham Majee)"
                     value={form.name}
                     onChange={handleChange}
-                    type="text"
                     required
                 />
 
