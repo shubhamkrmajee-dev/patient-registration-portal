@@ -86,6 +86,7 @@ function SearchPatientFeature() {
                 <button
                     onClick={() => {
                         fetchAllPatientsData();
+                        setNewData(false);
                     }}
                     className="search-patient-button"
                 >
