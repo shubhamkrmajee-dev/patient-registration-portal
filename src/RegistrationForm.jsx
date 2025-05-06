@@ -120,7 +120,7 @@ function PatientRegistrationForm() {
                     maxLength="10"
                 />
                 
-                <button type="submit" disabled={!validForm}>
+                <button type="submit" disabled={!validForm()}>
                     Register
                 </button>
             </form>
