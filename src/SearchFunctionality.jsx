@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import db from './db_pg';
+import './SearchFunctionality.css';
 
 function SearchPatientFeature() {
 
@@ -14,6 +15,8 @@ function SearchPatientFeature() {
             const response = await db.query(allDataQuery);
             setResults(response.rows);
             setError('');
+            localStorage.setItem('lastQuery', allDataQuery);
+            localStorage.setItem('lastResults', JSON.stringify(response.rows));
             setSearchName('');
         } catch (error) {
             setError('Failed to fetch all patients: ' + error.message);
@@ -27,6 +30,8 @@ function SearchPatientFeature() {
             const response = await db.query(filterDataQuery, [`${searchName}%`]);
             setResults(response.rows);
             setError('');
+            localStorage.setItem('lastQuery', `${filterDataQuery} with name = ${searchName}`);
+            localStorage.setItem('lastResults', JSON.stringify(response.rows));
         } catch (error) {
             setError('Filter search failed: ', + error.message);
             setResults([]);
@@ -34,7 +39,14 @@ function SearchPatientFeature() {
     };
 
     useEffect(() => {
-        fetchAllPatientsData();
+        try {
+            const savedResults = localStorage.getItem('lastResults');
+            if (savedResults) {
+                setResults(JSON.parse(savedResults));
+            } else {
+                fetchAllPatientsData();
+            }
+        } catch {}
     }, []);
 
     return (
