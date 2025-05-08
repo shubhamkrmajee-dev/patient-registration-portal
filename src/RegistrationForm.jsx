@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import db from './db_pg';
-import './RegistrationForm.css'
+import './RegistrationForm.css';
 
 function PatientRegistrationForm() {
     const [form, setForm] = useState({ name: '', age: '', gender: '', contact: ''});
